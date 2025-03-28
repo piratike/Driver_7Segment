@@ -23,10 +23,10 @@ class Driver_7Segment
 
     private:
 
-        uint8_t address;
-        uint8_t displayBuffer[8];
-        void writeDisplay();
-        uint8_t charToSegment(char c);
+        uint8_t _address;
+        uint8_t _displayBuffer[8];
+        void _writeDisplay();
+        uint8_t _charToSegment(char c);
 
 };
 
