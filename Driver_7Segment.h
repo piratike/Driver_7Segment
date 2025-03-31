@@ -2,6 +2,7 @@
 #define DRIVER_7SEGMENT_H
 
 #include <Wire.h>
+#include <Arduino.h>
 
 class Driver_7Segment
 {

@@ -1,10 +1,33 @@
 #include "Driver_7Segment.h"
 
-Driver_7Segment::Driver_7Segment()
-{}
+Driver_7Segment::Driver_7Segment() : _address(0x70)
+{
+}
 
 void Driver_7Segment::begin()
-{}
+{
+
+  Wire.begin();
+
+  for(uint8_t addr = 0x70 ; addr <= 0x77 ; addr++)
+  {
+
+    Wire.beginTransmission(addr);
+    if(Wire.endTransmission() == 0)
+    {
+
+      _address = addr;
+      break;
+
+    }
+
+  }
+
+  Wire.beginTransmission(_address);
+  Wire.write(0x21);
+  Wire.endTransmission();
+
+}
 
 void Driver_7Segment::setBrightness(uint8_t brightness)
 {}
@@ -39,5 +62,5 @@ void Driver_7Segment::turnOffSegment(uint8_t digit, uint8_t segment)
 void Driver_7Segment::_writeDisplay()
 {}
 
-void Driver_7Segment::_charToSegment(char c)
+uint8_t Driver_7Segment::_charToSegment(char c)
 {}
