@@ -8,7 +8,7 @@ class Driver_7Segment
 
     public:
 
-        Driver_7Segment(uint8_t address = 0x70);
+        Driver_7Segment();
         void begin();
         void setBrightness(uint8_t brightness);
         void clear();
