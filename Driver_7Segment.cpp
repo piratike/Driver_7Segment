@@ -81,13 +81,33 @@ void Driver_7Segment::displayOff()
 }
 
 void Driver_7Segment::print(int number, uint8_t digit)
-{}
+{
+
+  if(digit > 3) return;
+  if(number < 0 || number > 9) return;
+  _displayBuffer[digit] = _charToSegment('0' + number);
+  _writeDisplay();
+
+}
 
 void Driver_7Segment::print(char character, uint8_t digit)
-{}
+{
+
+  if(digit > 3) return;
+  _displayBuffer[digit] = _charToSegment(character);
+  _writeDisplay();
+
+}
 
 void Driver_7Segment::print(const char* str)
-{}
+{
+
+  for(uint8_t i = 0 ; i < 4 && str[i] != '\0' ; i++)
+    _displayBuffer[i] = _charToSegment(str[i]);
+
+  _writeDisplay();
+
+}
 
 void Driver_7Segment::setSegments(uint8_t digit, uint8_t value)
 {
@@ -134,4 +154,43 @@ void Driver_7Segment::_writeDisplay()
 }
 
 uint8_t Driver_7Segment::_charToSegment(char c)
-{}
+{
+
+  switch (c)
+  {
+    case '0': return 0b00111111; // 0
+    case '1': return 0b00000110; // 1
+    case '2': return 0b01011011; // 2
+    case '3': return 0b01001111; // 3
+    case '4': return 0b01100110; // 4
+    case '5': return 0b01101101; // 5
+    case '6': return 0b01111101; // 6
+    case '7': return 0b00000111; // 7
+    case '8': return 0b01111111; // 8
+    case '9': return 0b01101111; // 9
+    case 'A': case 'a': return 0b01110111; // A
+    case 'B': case 'b': return 0b01111100; // B
+    case 'C': case 'c': return 0b00111001; // C
+    case 'D': case 'd': return 0b01011110; // D
+    case 'E': case 'e': return 0b01111001; // E
+    case 'F': case 'f': return 0b01110001; // F
+    case 'G': case 'g': return 0b00111101; // G
+    case 'H': case 'h': return 0b01110100; // H
+    case 'I': case 'i': return 0b00000100; // I
+    case 'J': case 'j': return 0b00011110; // J
+    case 'L': case 'l': return 0b00111000; // L
+    case 'N': case 'n': return 0b01010100; // N
+    case 'O': case 'o': return 0b00111111; // O
+    case 'P': case 'p': return 0b01110011; // P
+    case 'Q': case 'q': return 0b01100111; // Q
+    case 'R': case 'r': return 0b01010000; // R
+    case 'S': case 's': return 0b01101101; // S
+    case 'T': case 't': return 0b01111000; // T
+    case 'U': case 'u': return 0b00111110; // U
+    case 'Y': case 'y': return 0b01101110; // Y
+    case '-': return 0b01000000;
+    case '_': return 0b00001000;
+    default: return 0b00000000;
+  }
+
+}
