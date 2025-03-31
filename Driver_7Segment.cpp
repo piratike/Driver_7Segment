@@ -4,7 +4,7 @@ Driver_7Segment::Driver_7Segment() : _address(0x70)
 {
 }
 
-void Driver_7Segment::begin()
+bool Driver_7Segment::begin()
 {
 
   Wire.begin();
@@ -37,6 +37,8 @@ void Driver_7Segment::begin()
   displayOn();
   setBrightness(15);
   clear();
+
+  return true;
 
 }
 

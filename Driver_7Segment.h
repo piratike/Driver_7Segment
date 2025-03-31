@@ -10,7 +10,7 @@ class Driver_7Segment
     public:
 
         Driver_7Segment();
-        void begin();
+        bool begin();
         void setBrightness(uint8_t brightness);
         void clear();
         void displayOn();
