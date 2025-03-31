@@ -28,6 +28,8 @@ void Driver_7Segment::begin()
   Wire.endTransmission();
 
   displayOn();
+  setBrightness(15);
+  clear();
 
 }
 
@@ -37,12 +39,19 @@ void Driver_7Segment::setBrightness(uint8_t brightness)
   if(brightness > 15) brightness = 15;
   Wire.beginTransmission(_address);
   Wire.write(0xE0 | brightness);
-  Wirte.endTransmission();
+  Wire.endTransmission();
 
 }
 
 void Driver_7Segment::clear()
-{}
+{
+
+  for(uint8_t i = 0 ; i < 8 ; i++)
+    _displayBuffer[i] = 0x00;
+
+  _writeDisplay();
+
+}
 
 void Driver_7Segment::displayOn()
 {
@@ -81,7 +90,21 @@ void Driver_7Segment::turnOffSegment(uint8_t digit, uint8_t segment)
 {}
 
 void Driver_7Segment::_writeDisplay()
-{}
+{
+
+  Wire.beginTransmission(_address);
+  Wire.write(0x00);
+  for(uint8_t i = 0 ; i < 8 ; i++)
+  {
+
+    Wire.write(_displayBuffer[i]);
+    Wire.write(0x00);
+
+  }
+
+  Wire.endTransmission();
+
+}
 
 uint8_t Driver_7Segment::_charToSegment(char c)
 {}
