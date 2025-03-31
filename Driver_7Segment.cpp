@@ -54,7 +54,13 @@ void Driver_7Segment::displayOn()
 }
 
 void Driver_7Segment::displayOff()
-{}
+{
+
+  Wire.beginTransmission(_address);
+  Wire.write(0x80);
+  Wire.endTransmission();
+
+}
 
 void Driver_7Segment::print(int number, uint8_t digit)
 {}
