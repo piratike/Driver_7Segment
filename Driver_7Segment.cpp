@@ -27,16 +27,31 @@ void Driver_7Segment::begin()
   Wire.write(0x21);
   Wire.endTransmission();
 
+  displayOn();
+
 }
 
 void Driver_7Segment::setBrightness(uint8_t brightness)
-{}
+{
+
+  if(brightness > 15) brightness = 15;
+  Wire.beginTransmission(_address);
+  Wire.write(0xE0 | brightness);
+  Wirte.endTransmission();
+
+}
 
 void Driver_7Segment::clear()
 {}
 
 void Driver_7Segment::displayOn()
-{}
+{
+
+  Wire.beginTransmission(_address);
+  Wire.write(0x81);
+  Wire.endTransmission();
+
+}
 
 void Driver_7Segment::displayOff()
 {}
