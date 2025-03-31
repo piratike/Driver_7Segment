@@ -1,9 +1,16 @@
 #include "Driver_7Segment.h"
 
+/**
+ * @brief Constructor initializes the I2C address to the default 0x70.
+ */
 Driver_7Segment::Driver_7Segment() : _address(0x70)
 {
 }
 
+/**
+ * @brief Initializes the HT16K33 display by searching for its I2C address.
+ * @return True if a valid I2C address is found, false otherwise.
+ */
 bool Driver_7Segment::begin()
 {
 
@@ -42,6 +49,10 @@ bool Driver_7Segment::begin()
 
 }
 
+/**
+ * @brief Sets the display brightness.
+ * @param brightness Value from 0 (dim) to 15 (bright).
+ */
 void Driver_7Segment::setBrightness(uint8_t brightness)
 {
 
@@ -52,6 +63,9 @@ void Driver_7Segment::setBrightness(uint8_t brightness)
 
 }
 
+/**
+ * @brief Clears the display buffer and updates the display.
+ */
 void Driver_7Segment::clear()
 {
 
@@ -62,6 +76,9 @@ void Driver_7Segment::clear()
 
 }
 
+/**
+ * @brief Turns on the display.
+ */
 void Driver_7Segment::displayOn()
 {
 
@@ -71,6 +88,9 @@ void Driver_7Segment::displayOn()
 
 }
 
+/**
+ * @brief Turns off the display.
+ */
 void Driver_7Segment::displayOff()
 {
 
@@ -80,6 +100,11 @@ void Driver_7Segment::displayOff()
 
 }
 
+/**
+ * @brief Displays a single digit number at a specific position.
+ * @param number The number (0-9) to display.
+ * @param digit The digit position (0-3 for a 4-digit display).
+ */
 void Driver_7Segment::print(int number, uint8_t digit)
 {
 
@@ -90,6 +115,11 @@ void Driver_7Segment::print(int number, uint8_t digit)
 
 }
 
+/**
+ * @brief Displays a character at a specific position.
+ * @param character The character to display.
+ * @param digit The digit position (0-3 for a 4-digit display).
+ */
 void Driver_7Segment::print(char character, uint8_t digit)
 {
 
@@ -99,6 +129,10 @@ void Driver_7Segment::print(char character, uint8_t digit)
 
 }
 
+/**
+ * @brief Displays a string on the 7-segment display (up to 4 characters).
+ * @param str The null-terminated string to display.
+ */
 void Driver_7Segment::print(const char* str)
 {
 
@@ -109,6 +143,11 @@ void Driver_7Segment::print(const char* str)
 
 }
 
+/**
+ * @brief Sets the segment data for a specific digit.
+ * @param digit The digit position (0-3).
+ * @param value The segment bitmask (each bit represents a segment).
+ */
 void Driver_7Segment::setSegments(uint8_t digit, uint8_t value)
 {
 
@@ -118,6 +157,11 @@ void Driver_7Segment::setSegments(uint8_t digit, uint8_t value)
 
 }
 
+/**
+ * @brief Turns on a specific segment in a digit.
+ * @param digit The digit position (0-3).
+ * @param segment The segment index (0-7).
+ */
 void Driver_7Segment::turnOnSegment(uint8_t digit, uint8_t segment)
 {
 
@@ -127,6 +171,11 @@ void Driver_7Segment::turnOnSegment(uint8_t digit, uint8_t segment)
 
 }
 
+/**
+ * @brief Turns off a specific segment in a digit.
+ * @param digit The digit position (0-3).
+ * @param segment The segment index (0-7).
+ */
 void Driver_7Segment::turnOffSegment(uint8_t digit, uint8_t segment)
 {
 
@@ -136,6 +185,9 @@ void Driver_7Segment::turnOffSegment(uint8_t digit, uint8_t segment)
 
 }
 
+/**
+ * @brief Writes the display buffer to the HT16K33.
+ */
 void Driver_7Segment::_writeDisplay()
 {
 
@@ -153,41 +205,46 @@ void Driver_7Segment::_writeDisplay()
 
 }
 
+/**
+ * @brief Converts a character into its 7-segment representation.
+ * @param c The character to convert.
+ * @return The corresponding segment bitmask.
+ */
 uint8_t Driver_7Segment::_charToSegment(char c)
 {
 
   switch (c)
   {
-    case '0': return 0b00111111; // 0
-    case '1': return 0b00000110; // 1
-    case '2': return 0b01011011; // 2
-    case '3': return 0b01001111; // 3
-    case '4': return 0b01100110; // 4
-    case '5': return 0b01101101; // 5
-    case '6': return 0b01111101; // 6
-    case '7': return 0b00000111; // 7
-    case '8': return 0b01111111; // 8
-    case '9': return 0b01101111; // 9
-    case 'A': case 'a': return 0b01110111; // A
-    case 'B': case 'b': return 0b01111100; // B
-    case 'C': case 'c': return 0b00111001; // C
-    case 'D': case 'd': return 0b01011110; // D
-    case 'E': case 'e': return 0b01111001; // E
-    case 'F': case 'f': return 0b01110001; // F
-    case 'G': case 'g': return 0b00111101; // G
-    case 'H': case 'h': return 0b01110100; // H
-    case 'I': case 'i': return 0b00000100; // I
-    case 'J': case 'j': return 0b00011110; // J
-    case 'L': case 'l': return 0b00111000; // L
-    case 'N': case 'n': return 0b01010100; // N
-    case 'O': case 'o': return 0b00111111; // O
-    case 'P': case 'p': return 0b01110011; // P
-    case 'Q': case 'q': return 0b01100111; // Q
-    case 'R': case 'r': return 0b01010000; // R
-    case 'S': case 's': return 0b01101101; // S
-    case 'T': case 't': return 0b01111000; // T
-    case 'U': case 'u': return 0b00111110; // U
-    case 'Y': case 'y': return 0b01101110; // Y
+    case '0': return 0b00111111;
+    case '1': return 0b00000110;
+    case '2': return 0b01011011;
+    case '3': return 0b01001111;
+    case '4': return 0b01100110;
+    case '5': return 0b01101101;
+    case '6': return 0b01111101;
+    case '7': return 0b00000111;
+    case '8': return 0b01111111;
+    case '9': return 0b01101111;
+    case 'A': case 'a': return 0b01110111;
+    case 'B': case 'b': return 0b01111100;
+    case 'C': case 'c': return 0b00111001;
+    case 'D': case 'd': return 0b01011110;
+    case 'E': case 'e': return 0b01111001;
+    case 'F': case 'f': return 0b01110001;
+    case 'G': case 'g': return 0b00111101;
+    case 'H': case 'h': return 0b01110100;
+    case 'I': case 'i': return 0b00000100;
+    case 'J': case 'j': return 0b00011110;
+    case 'L': case 'l': return 0b00111000;
+    case 'N': case 'n': return 0b01010100;
+    case 'O': case 'o': return 0b00111111;
+    case 'P': case 'p': return 0b01110011;
+    case 'Q': case 'q': return 0b01100111;
+    case 'R': case 'r': return 0b01010000;
+    case 'S': case 's': return 0b01101101;
+    case 'T': case 't': return 0b01111000;
+    case 'U': case 'u': return 0b00111110;
+    case 'Y': case 'y': return 0b01101110;
     case '-': return 0b01000000;
     case '_': return 0b00001000;
     default: return 0b00000000;
