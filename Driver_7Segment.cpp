@@ -90,7 +90,13 @@ void Driver_7Segment::print(const char* str)
 {}
 
 void Driver_7Segment::setSegments(uint8_t digit, uint8_t value)
-{}
+{
+
+  if(digit > 3) return;
+  _displayBuffer[digit] = value;
+  _writeDisplay();
+
+}
 
 void Driver_7Segment::turnOnSegment(uint8_t digit, uint8_t segment)
 {}
