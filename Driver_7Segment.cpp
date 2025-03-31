@@ -8,6 +8,7 @@ void Driver_7Segment::begin()
 {
 
   Wire.begin();
+  bool device_found = false;
 
   for(uint8_t addr = 0x70 ; addr <= 0x77 ; addr++)
   {
@@ -16,16 +17,22 @@ void Driver_7Segment::begin()
     if(Wire.endTransmission() == 0)
     {
 
-      _address = addr;
-      break;
+      Wire.beginTransmission(addr);
+      Wire.write(0x21);
+      if(Wire.endTransmission() == 0)
+      {
+
+        _address = addr;
+        device_found = true;
+        break;
+
+      }
 
     }
 
   }
 
-  Wire.beginTransmission(_address);
-  Wire.write(0x21);
-  Wire.endTransmission();
+  if(!device_found) return false;
 
   displayOn();
   setBrightness(15);
