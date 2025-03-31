@@ -99,10 +99,22 @@ void Driver_7Segment::setSegments(uint8_t digit, uint8_t value)
 }
 
 void Driver_7Segment::turnOnSegment(uint8_t digit, uint8_t segment)
-{}
+{
+
+  if(digit > 3 || segment > 7) return;
+  _displayBuffer[digit] |= (1 << segment);
+  _writeDisplay();
+
+}
 
 void Driver_7Segment::turnOffSegment(uint8_t digit, uint8_t segment)
-{}
+{
+
+  if(digit > 3 || segment > 7) return;
+  _displayBuffer[digit] &= ~(1 << segment);
+  _writeDisplay();
+
+}
 
 void Driver_7Segment::_writeDisplay()
 {
