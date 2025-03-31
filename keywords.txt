@@ -1,0 +1,17 @@
+#######################################
+# Syntax Coloring for Driver_7Segment Library
+#######################################
+
+# Class Name (Highlighted as a Keyword)
+Driver_7Segment	KEYWORD1
+
+# Public Methods (Highlighted as Functions)
+begin	KEYWORD2
+setBrightness	KEYWORD2
+clear	KEYWORD2
+displayOn	KEYWORD2
+displayOff	KEYWORD2
+print	KEYWORD2
+setSegments	KEYWORD2
+turnOnSegment	KEYWORD2
+turnOffSegment	KEYWORD2
