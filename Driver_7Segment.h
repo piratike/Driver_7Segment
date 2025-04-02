@@ -64,6 +64,18 @@ class Driver_7Segment
         void print(const char* str);
 
         /**
+         * @brief Displays an integer on the 7-segment display (0-9999).
+         * @param number The integer to display (0-9999).
+         */
+        void print(int number);
+
+        /**
+         * @brief Displays a floating-point number on the 7-segment display (up to 3 decimal places).
+         * @param number The floating-point number to display.
+         */
+        void print(double number);
+
+        /**
          * @brief Sets the segment data for a specific digit.
          * @param digit The digit position (0-3).
          * @param value The segment bitmask (each bit represents a segment).

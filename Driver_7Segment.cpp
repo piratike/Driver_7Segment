@@ -144,6 +144,39 @@ void Driver_7Segment::print(const char* str)
 }
 
 /**
+ * @brief Displays an integer on the 7-segment display (0-9999).
+ * @param number The integer to display (0-9999).
+ */
+void Driver_7Segment::print(int number)
+{
+
+  if(number < 0 || number > 9999) return;
+  char buffer[5];
+  snprintf(buffer, sizeof(buffer), "%4d", number);
+  print(buffer);
+
+}
+
+/**
+ * @brief Displays a floating-point number on the 7-segment display (up to 3 decimal places).
+ * @param number The floating-point number to display.
+ */
+void Driver_7Segment::print(double number)
+{
+
+  String value_string = String(number, 3);
+  uint8_t comma_index = value_string.indexOf('.');
+  String integer_part = value_string.substring(0, comma_index);
+  String decimal_part = value_string.substring(comma_index + 1);
+  value_string = integer_part + decimal_part;
+  if(value_string.length() > 4) value_string = value_string.substring(0, 4);
+  print(value_string.c_str());
+  _displayBuffer[comma_index - 1] |= 0b10000000;
+  _writeDisplay();
+
+}
+
+/**
  * @brief Sets the segment data for a specific digit.
  * @param digit The digit position (0-3).
  * @param value The segment bitmask (each bit represents a segment).
